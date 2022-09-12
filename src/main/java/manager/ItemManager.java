@@ -91,7 +91,6 @@ public class ItemManager {
         return lastItems;
     }
 
-
     public List<Item> getAllByCategoryId(int categoryId) {
         String sql = "SELECT * FROM item where category_id=" + categoryId;
         List<Item> items = new ArrayList<>();
@@ -142,7 +141,6 @@ public class ItemManager {
             e.printStackTrace();
         }
     }
-
 
     public void edit(Item item) {
         String sql = "update item set title=?,price=?,category_id=?,pic_url=? where id=?";
