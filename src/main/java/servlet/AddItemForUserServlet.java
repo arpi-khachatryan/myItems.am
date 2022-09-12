@@ -38,9 +38,6 @@ public class AddItemForUserServlet extends HttpServlet {
         List<Category> categories = categoryManager.getAll();
         req.setAttribute("categories", categories);
         req.getRequestDispatcher("/WEB-INF/addItemForUser.jsp").forward(req, resp);
-
-
-
     }
 
     @Override
