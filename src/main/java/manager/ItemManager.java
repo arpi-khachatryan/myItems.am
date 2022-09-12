@@ -143,23 +143,6 @@ public class ItemManager {
         }
     }
 
-//    public void edit(Item item) {
-//        String sql = "update item set title=?,price=?,category_id=?,pic_url=?,user_id=? where id=?";
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(sql);
-//            ps.setString(1, item.getTitle());
-//            ps.setDouble(2, item.getPrice());
-//            ps.setInt(3, item.getCategory().getId());
-//            ps.setString(4, item.getPicUrl());
-//            ps.setInt(5, item.getUser().getId());
-//            ps.setInt(6, item.getId());
-//            ps.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
 
     public void edit(Item item) {
         String sql = "update item set title=?,price=?,category_id=?,pic_url=? where id=?";
