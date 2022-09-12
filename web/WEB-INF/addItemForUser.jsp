@@ -18,7 +18,7 @@
 <form action="/items/add/user" , method="post" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="Please input title"><br>
     <input type="number" name="price" placeholder="Please input price"><br>
-    <h3 style="color: mediumpurple"> Please select category:</h3>
+    <h3 style="color: mediumpurple">Please select category:</h3>
     <select name="category_id">
         <% for (Category category : categories) { %>
         <option value="<%=category.getId()%>"><%=category.getName()%>
