@@ -2,7 +2,6 @@ package manager;
 
 import db.DBConnectionProvider;
 import model.Category;
-import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,8 +30,8 @@ public class CategoryManager {
         String sql = "select * from category";
         List<Category> categories = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 categories.add(getCategoryFromResultSet(resultSet));
             }
@@ -45,8 +44,8 @@ public class CategoryManager {
     public Category getById(int id) {
         String sql = "select * from category where id = " + id;
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery(sql);
             if (resultSet.next()) {
                 return getCategoryFromResultSet(resultSet);
             }
