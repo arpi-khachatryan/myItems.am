@@ -31,7 +31,6 @@ public class ItemsServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/item.jsp").forward(req, resp);
         } else {
             Category category = categoryManager.getById(categoryId);
-
             if (category == null) {
                 resp.sendRedirect("/main.jsp");
             } else {
