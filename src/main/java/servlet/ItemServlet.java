@@ -23,7 +23,8 @@ public class ItemServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Item> items = itemManager.getAll();
+        int userId = Integer.parseInt(req.getParameter("id"));
+        List<Item> items = itemManager.getAllByUserId(userId);
         req.setAttribute("items", items);
         req.getRequestDispatcher("/WEB-INF/item.jsp").forward(req, resp);
     }
