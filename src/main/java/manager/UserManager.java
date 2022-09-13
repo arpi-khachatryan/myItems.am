@@ -33,8 +33,8 @@ public class UserManager {
         String sql = "select * from user";
         List<User> users = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 users.add(getUserFromResultSet(resultSet));
             }
@@ -47,8 +47,8 @@ public class UserManager {
     public User getById(int id) {
         String sql = "select * from user where id = " + id;
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery();
             if (resultSet.next()) {
                 return getUserFromResultSet(resultSet);
             }
