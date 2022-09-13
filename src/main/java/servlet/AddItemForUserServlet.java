@@ -32,9 +32,6 @@ public class AddItemForUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int userId = Integer.parseInt(req.getParameter("id"));
-        User user = userManager.getById(userId);
-        req.setAttribute("user", user);
         List<Category> categories = categoryManager.getAll();
         req.setAttribute("categories", categories);
         req.getRequestDispatcher("/WEB-INF/addItemForUser.jsp").forward(req, resp);
@@ -61,7 +58,7 @@ public class AddItemForUserServlet extends HttpServlet {
                 .user(userManager.getById(userId))
                 .build();
         itemManager.add(item);
-        resp.sendRedirect("/item");
+        resp.sendRedirect("/main.jsp");
     }
 }
 
