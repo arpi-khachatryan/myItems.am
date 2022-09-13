@@ -16,6 +16,7 @@
     User user = (User) session.getAttribute("user");
 %>
 <h3 style="color:mediumpurple">Please input data about the item:</h3>
+
 <form action="/items/add/user" , method="post" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="Please input title"><br>
     <input type="number" name="price" placeholder="Please input price"><br>
