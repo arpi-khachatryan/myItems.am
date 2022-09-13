@@ -8,7 +8,9 @@
 </head>
 <body>
 <h1 style="color: mediumpurple">ITEMS</h1>
-<% List<Item> items = (List<Item>) request.getAttribute("items");%>
+<% List<Item> items = (List<Item>) request.getAttribute("items");
+//    User user = (User) session.getAttribute("user");
+%>
 <table border="1">
     <tr>
         <th>IMAGE</th>
