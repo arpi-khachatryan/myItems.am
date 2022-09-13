@@ -14,7 +14,6 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/")
 public class CategoriesServlet extends HttpServlet {
-
     private CategoryManager categoryManager = new CategoryManager();
     private ItemManager itemManager = new ItemManager();
 
