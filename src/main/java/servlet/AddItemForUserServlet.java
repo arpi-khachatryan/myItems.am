@@ -18,12 +18,13 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet(urlPatterns = "/items/add/user")
+
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1,
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 100
 )
+@WebServlet(urlPatterns = "/items/add/user")
 public class AddItemForUserServlet extends HttpServlet {
     private ItemManager itemManager = new ItemManager();
     private UserManager userManager = new UserManager();
