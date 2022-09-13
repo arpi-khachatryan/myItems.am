@@ -68,8 +68,8 @@ public class ItemManager {
         List<Item> items = new ArrayList<>();
         List<Item> lastItems = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 Item item = getItemFromResultSet(resultSet);
                 items.add(item);
@@ -96,8 +96,8 @@ public class ItemManager {
         List<Item> items = new ArrayList<>();
         List<Item> lastItems = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 Item item = getItemFromResultSet(resultSet);
                 items.add(item);
