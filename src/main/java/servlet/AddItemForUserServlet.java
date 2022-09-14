@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.List;
 
 
-
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1,
         maxFileSize = 1024 * 1024 * 10,
@@ -44,9 +43,10 @@ public class AddItemForUserServlet extends HttpServlet {
         double price = Double.parseDouble(req.getParameter("price"));
         int categoryId = Integer.parseInt(req.getParameter("category_id"));
         Part profilePicPart = req.getPart("picUrl");
-        int userId = Integer.parseInt(req.getParameter("user_id"));
+        User user = (User) req.getSession().getAttribute("user");
+//        int userId = Integer.parseInt(req.getParameter("user_id"));
         String fileName = null;
-        if (profilePicPart.getSize() != 0) {
+        if (profilePicPart.getName().contains(".jpeg") || profilePicPart.getName().contains(".png")) {
             long nanoTime = System.nanoTime();
             fileName = nanoTime + "_" + profilePicPart.getSubmittedFileName();
             profilePicPart.write(imagePath + fileName);
@@ -56,7 +56,8 @@ public class AddItemForUserServlet extends HttpServlet {
                 .price(price)
                 .category(categoryManager.getById(categoryId))
                 .picUrl(fileName)
-                .user(userManager.getById(userId))
+//                .user(userManager.getById(userId))
+                .user(user)
                 .build();
         itemManager.add(item);
         resp.sendRedirect("/main.jsp");
