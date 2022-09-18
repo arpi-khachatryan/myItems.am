@@ -1,7 +1,5 @@
 package servlet;
 
-
-
 import manager.UserManager;
 import model.User;
 
@@ -14,23 +12,23 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/users/edit")
 public class UserEditServlet extends HttpServlet {
-    private UserManager userManager = new UserManager();
+
+    private final UserManager userManager = new UserManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int userId = Integer.parseInt(req.getParameter("id"));
-        User user = userManager.getById(userId);
-        req.setAttribute("user", user);
+        req.setAttribute("user", userManager.getById(Integer.parseInt(req.getParameter("id"))));
         req.getRequestDispatcher("/WEB-INF/editUser.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int userId = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+
         User user = User.builder()
                 .id(userId)
                 .name(name)
@@ -39,6 +37,7 @@ public class UserEditServlet extends HttpServlet {
                 .password(password)
                 .build();
         userManager.edit(user);
+
         resp.sendRedirect("/users");
     }
 }
