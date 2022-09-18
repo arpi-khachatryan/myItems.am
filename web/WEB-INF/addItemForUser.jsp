@@ -12,7 +12,6 @@
 <h1 style="color: mediumpurple">ADD ITEM</h1>
 <%
     List<Category> categories = (List<Category>) request.getAttribute("categories");
-//    User user = (User) request.getAttribute("user");
     User user = (User) session.getAttribute("user");
 %>
 <h3 style="color:mediumpurple">Please input data about the item:</h3>
