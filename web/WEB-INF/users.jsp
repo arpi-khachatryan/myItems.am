@@ -30,7 +30,7 @@
         <td><%=user.getPassword()%>
         </td>
         <td>
-            <a href="/users/remove?id=<%=user.getId()%>">Remove</a> |
+            <a href="/users?id=<%=user.getId()%>">Remove</a> |
             <a href="/users/edit?id=<%=user.getId()%>">Edit</a>
         </td>
     </tr>
