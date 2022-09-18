@@ -13,16 +13,18 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/users/add")
 public class AddUserServlet extends HttpServlet {
-    private UserManager userManager = new UserManager();
+
+    private final UserManager userManager = new UserManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/addUser.jsp").forward(req, resp);
+        resp.sendRedirect("/WEB-INF/addUser.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
+
         if (userManager.getUserByEmail(email) != null) {
             req.setAttribute("msg", "User already exists");
             req.getRequestDispatcher("/WEB-INF/addUser.jsp").forward(req, resp);
@@ -30,13 +32,16 @@ public class AddUserServlet extends HttpServlet {
             String name = req.getParameter("name");
             String surname = req.getParameter("surname");
             String password = req.getParameter("password");
+
             User user = User.builder()
                     .name(name)
                     .surname(surname)
                     .email(email)
                     .password(password)
                     .build();
+
             userManager.add(user);
+
             resp.sendRedirect("/login");
         }
     }
