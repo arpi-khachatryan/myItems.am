@@ -2,7 +2,6 @@ package servlet;
 
 import manager.CategoryManager;
 import manager.ItemManager;
-import manager.UserManager;
 import model.Category;
 import model.Item;
 import model.User;
@@ -18,17 +17,16 @@ import java.io.IOException;
 import java.util.List;
 
 
-@MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 1,
-        maxFileSize = 1024 * 1024 * 10,
-        maxRequestSize = 1024 * 1024 * 100
-)
 @WebServlet(urlPatterns = "/items/add/user")
-public class AddItemForUserServlet extends HttpServlet {
-    private ItemManager itemManager = new ItemManager();
-    private UserManager userManager = new UserManager();
-    private CategoryManager categoryManager = new CategoryManager();
-    private static final String imagePath = "/Users/annakhachatryan/Library/Application Support/JetBrains/myItems.am/projectImages/";
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 * 1024 * 100)
+public class AddItemServlet extends HttpServlet {
+
+    private final ItemManager itemManager = new ItemManager();
+    private final CategoryManager categoryManager = new CategoryManager();
+    private static final String IMAGE_PATH = "/Users/annakhachatryan/Library/Application Support/JetBrains/myItems.am/projectImages/";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,12 +42,18 @@ public class AddItemForUserServlet extends HttpServlet {
         int categoryId = Integer.parseInt(req.getParameter("category_id"));
         Part profilePicPart = req.getPart("picUrl");
         User user = (User) req.getSession().getAttribute("user");
-//        int userId = Integer.parseInt(req.getParameter("user_id"));
+
+        saveItem(title, price, categoryId, profilePicPart, user);
+
+        resp.sendRedirect("/main.jsp");
+    }
+
+    private void saveItem(String title, double price, int categoryId, Part profilePicPart, User user) throws IOException {
         String fileName = null;
         if (profilePicPart.getName().contains(".jpeg") || profilePicPart.getName().contains(".png")) {
             long nanoTime = System.nanoTime();
             fileName = nanoTime + "_" + profilePicPart.getSubmittedFileName();
-            profilePicPart.write(imagePath + fileName);
+            profilePicPart.write(IMAGE_PATH + fileName);
         }
         Item item = Item.builder()
                 .title(title)
@@ -60,7 +64,6 @@ public class AddItemForUserServlet extends HttpServlet {
                 .user(user)
                 .build();
         itemManager.add(item);
-        resp.sendRedirect("/main.jsp");
     }
 }
 
