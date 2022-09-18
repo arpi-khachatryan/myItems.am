@@ -11,12 +11,12 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/items/remove")
 public class ItemRemoveServlet extends HttpServlet {
-    private ItemManager itemManager = new ItemManager();
+
+    private final ItemManager itemManager = new ItemManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        itemManager.deleteItemById(id);
+        itemManager.deleteItemById(Integer.parseInt(req.getParameter("id")));
         resp.sendRedirect("/item");
     }
 }
