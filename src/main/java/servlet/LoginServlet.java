@@ -8,12 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
-    private UserManager userManager = new UserManager();
+
+    private final UserManager userManager = new UserManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,13 +24,13 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = userManager.getUserByEmailAndPassword(email, password);
-        if (user == null) {
+        User user = userManager.getUserByEmail(email);
+
+        if (user == null || !user.getPassword().equals(password)) {
             req.setAttribute("msg", "Email or Password is incorrect");
             req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
         } else {
-            HttpSession session = req.getSession();
-            session.setAttribute("user", user);
+            req.getSession().setAttribute("user", user);
             resp.sendRedirect("/main.jsp");
         }
     }
