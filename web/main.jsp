@@ -21,21 +21,18 @@
         <a href="/users/add" style="color: mediumpurple">Register</a>
     </div>
     <div style="position: fixed; left: 30%">
-        <a href="/item/main" style="color: mediumpurple">Main</a>
+        <a href="/items?id=0" style="color: mediumpurple">Main</a>
         <% for (Category category : categories) { %>
         <a href="/items?id=<%=category.getId()%>"><%=category.getName()%>
         </a>
-        <% }%>
+        <%}%>
     </div>
     <% } else {%>
     <span>Hello,  <%=user.getName()%></span>
-<%--    <a href="/items/add/user?id=<%=user.getId()%>">Add Item</a>--%>
     <a href="/items/add/user">Add Item</a>
-
-    <a href="/item?id=<%=user.getId()%>">My Items</a>
+    <a href="/items">My Items</a>
     <a href="/logout" style="color: dodgerblue">Logout</a>
     <%}%>
 </div>
 </body>
 </html>
-<%--    <a href="/items/add" style="color: mediumpurple">Add Item</a><br>--%>
