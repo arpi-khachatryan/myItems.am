@@ -8,8 +8,8 @@
 </head>
 <body>
 <h1 style="color: mediumpurple">ITEMS</h1>
-<% List<Item> items = (List<Item>) request.getAttribute("items");
-//    User user = (User) session.getAttribute("user");
+<%
+    List<Item> items = (List<Item>) request.getAttribute("items");
 %>
 <table border="1">
     <tr>
@@ -25,7 +25,7 @@
     <tr>
         <td>
             <% if (item.getPicUrl() == null || item.getPicUrl().length() == 0) {%>
-            <img src="/image/istockphoto-1197083298-1024x1024.jpg">
+            <img src="image/istockphoto-1197083298-1024x1024.jpg">
             <%} else {%>
             <img src="/getImage?picUrl=<%=item.getPicUrl()%>" width="100">
             <%}%>
