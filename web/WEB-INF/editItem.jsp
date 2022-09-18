@@ -10,9 +10,8 @@
 </head>
 <body>
 <%
-    Item item = (Item) request.getAttribute("items");
+    Item item = (Item) request.getAttribute("item");
     List<Category> categories = (List<Category>) request.getAttribute("categories");
-    List<User> users = (List<User>) request.getAttribute("users");
 %>
 <h3 style="color: mediumpurple">Update the data:</h3><br>
 <form action="/items/edit" method="post">
@@ -31,18 +30,6 @@
         <% }
         } %>
     </select>
-<%--    <select name="user_id">--%>
-<%--        <% for (User user : users) {--%>
-<%--            if (user.equals(item.getUser())) {--%>
-<%--        %>--%>
-<%--        <option selected value="<%=user.getId()%>"><%=user.getName()%> <%=user.getSurname()%>--%>
-<%--        </option>--%>
-<%--        <% } else { %>--%>
-<%--        <option value="<%=user.getId()%>"><%=user.getName()%> <%=user.getSurname()%>--%>
-<%--        </option>--%>
-<%--        <% }--%>
-<%--        } %>--%>
-<%--    </select>--%>
     <input type="submit" value="UPDATE">
 </form>
 </body>
