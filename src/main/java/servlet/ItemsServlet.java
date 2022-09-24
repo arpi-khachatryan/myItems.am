@@ -31,9 +31,9 @@ public class ItemsServlet extends HttpServlet {
         } else {
             int categoryId = Integer.parseInt(catId);
             Category category = categoryManager.getById(categoryId);
-            if (category == null) {
-                resp.sendRedirect("/main.jsp");
-            }
+//            if (category == null) {
+//                resp.sendRedirect("/main.jsp");
+//            }
             if (categoryId == 0) {
                 items = itemManager.getAll();
             } else {
