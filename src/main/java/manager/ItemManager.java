@@ -14,8 +14,8 @@ public class ItemManager {
     private final UserManager userManager = new UserManager();
 
     public void add(Item item) {
-        String sql = "insert into item(title,price,category_id,pic_url,user_id) values(?,?,?,?,?)";
-        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        String query = "insert into item(title,price,category_id,pic_url,user_id) values(?,?,?,?,?)";
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, item.getTitle());
             ps.setDouble(2, item.getPrice());
             ps.setInt(3, item.getCategory().getId());
@@ -33,10 +33,10 @@ public class ItemManager {
     }
 
     public List<Item> getAll() {
-        String sql = "select * from item order by id DESC limit 20";
+        String query = "select * from item order by id DESC limit 20";
         List<Item> items = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sql);
+            ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 items.add(getItemFromResultSet(resultSet));
             }
@@ -47,9 +47,9 @@ public class ItemManager {
     }
 
     public Item getById(int id) {
-        String sql = "select * from item where id=" + id;
+        String query = "select * from item where id=" + id;
         try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sql);
+            ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 return getItemFromResultSet(resultSet);
             }
@@ -60,18 +60,18 @@ public class ItemManager {
     }
 
     public List<Item> getAllByUserId(int userId) {
-        String sql = "select * from item  where user_id = ? order by id DESC limit 20";
-        return getItems(userId, sql);
+        String query = "select * from item where user_id = ? order by id desc limit 20";
+        return getItems(userId, query);
     }
 
     public List<Item> getAllByCategoryId(int categoryId) {
-        String sql = "SELECT * FROM item where category_id = ? order by id desc limit 20";
-        return getItems(categoryId, sql);
+        String query = "SELECT * FROM item where category_id = ? order by id desc limit 20";
+        return getItems(categoryId, query);
     }
 
     public void deleteItemById(int id) {
-        String sql = "delete from item where id =?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        String query = "delete from item where id =?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -80,8 +80,8 @@ public class ItemManager {
     }
 
     public void edit(Item item) {
-        String sql = "update item set title=?,price=?,category_id=?,pic_url=? where id=?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        String query = "update item set title=?,price=?,category_id=?,pic_url=? where id=?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, item.getTitle());
             ps.setDouble(2, item.getPrice());
             ps.setInt(3, item.getCategory().getId());
@@ -93,14 +93,13 @@ public class ItemManager {
         }
     }
 
-    private List<Item> getItems(int someId, String sql) {
+    private List<Item> getItems(int someId, String query) {
         List<Item> items = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, someId);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                Item item = getItemFromResultSet(resultSet);
-                items.add(item);
+                items.add(getItemFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
