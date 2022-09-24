@@ -12,8 +12,8 @@ public class UserManager {
     private final Connection connection = DBConnectionProvider.getInstance().getConnection();
 
     public void add(User user) {
-        String sql = "insert into user(name,surname,email,password) values(?,?,?,?)";
-        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        String query = "insert into user(name,surname,email,password) values(?,?,?,?)";
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getSurname());
             ps.setString(3, user.getEmail());
@@ -30,9 +30,9 @@ public class UserManager {
     }
 
     public List<User> getAll() {
-        String sql = "select * from user";
+        String query = "select * from user";
         List<User> users = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 users.add(getUserFromResultSet(resultSet));
@@ -44,8 +44,8 @@ public class UserManager {
     }
 
     public User getById(int id) {
-        String sql = "select * from user where id = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        String query = "select * from user where id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet.next()) {
@@ -58,8 +58,8 @@ public class UserManager {
     }
 
     public User getUserByEmail(String email) {
-        String sql = "select * from user where email=?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        String query = "select * from user where email=?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, email);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet.next()) {
@@ -81,8 +81,8 @@ public class UserManager {
     }
 
     public void edit(User user) {
-        String sql = "update user set name=?,surname=?,email=?,password=? where id=?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        String query = "update user set name=?,surname=?,email=?,password=? where id=?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getSurname());
             ps.setString(3, user.getEmail());
