@@ -12,8 +12,8 @@ public class CategoryManager {
     private final Connection connection = DBConnectionProvider.getInstance().getConnection();
 
     public void add(Category category) {
-        String sql = "insert into category(name) values(?)";
-        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        String query = "insert into category(name) values(?)";
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, category.getName());
             ps.executeUpdate();
             ResultSet resultSet = ps.getGeneratedKeys();
@@ -27,9 +27,9 @@ public class CategoryManager {
     }
 
     public List<Category> getAll() {
-        String sql = "select * from category";
+        String query = "select * from category";
         List<Category> categories = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 categories.add(getCategoryFromResultSet(resultSet));
@@ -41,9 +41,9 @@ public class CategoryManager {
     }
 
     public Category getById(int id) {
-        String sql = "select * from category where id = " + id;
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ResultSet resultSet = ps.executeQuery(sql);
+        String query = "select * from category where id = " + id;
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ResultSet resultSet = ps.executeQuery(query);
             if (resultSet.next()) {
                 return getCategoryFromResultSet(resultSet);
             }
@@ -65,8 +65,8 @@ public class CategoryManager {
     }
 
     public void edit(Category category) {
-        String sql = "update category set name=? where id=?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        String query = "update category set name=? where id=?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, category.getName());
             ps.setInt(2, category.getId());
             ps.executeUpdate();
