@@ -60,7 +60,6 @@ public class AddItemServlet extends HttpServlet {
                 .price(price)
                 .category(categoryManager.getById(categoryId))
                 .picUrl(fileName)
-//                .user(userManager.getById(userId))
                 .user(user)
                 .build();
         itemManager.add(item);
