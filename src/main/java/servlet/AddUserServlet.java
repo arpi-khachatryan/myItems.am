@@ -41,7 +41,6 @@ public class AddUserServlet extends HttpServlet {
                     .build();
 
             userManager.add(user);
-
             resp.sendRedirect("/login");
         }
     }
